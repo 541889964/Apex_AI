@@ -1,7 +1,11 @@
-plugins { id 'com.android.application' }
+plugins {
+    id 'com.android.application'
+}
+
 android {
     namespace 'com.ai.apex'
     compileSdk 33
+
     defaultConfig {
         applicationId "com.ai.apex"
         minSdk 27
@@ -9,10 +13,20 @@ android {
         versionCode 1
         versionName "Apex-1.0"
     }
-    buildFeatures { viewBinding true }
-    buildTypes { release { signingConfig signingConfigs.debug; minifyEnabled false } }
-    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
 }
+
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
