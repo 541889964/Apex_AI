@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawerLayout" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@drawable/bg_main">
+
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:fitsSystemWindows="true">
+        
+        <!-- 顶部导航 -->
+        <LinearLayout android:id="@+id/topBar" android:layout_width="match_parent" android:layout_height="56dp" android:orientation="horizontal" android:gravity="center_vertical" android:paddingHorizontal="16dp" android:layout_alignParentTop="true">
+            <ImageButton android:id="@+id/btnMenu" android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_sort_by_size" android:background="?attr/selectableItemBackgroundBorderless" app:tint="#00F0FF"/>
+            
+            <!-- 模式切换按钮 -->
+            <TextView android:id="@+id/btnModeAI" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="AI 智脑" android:textColor="#00F0FF" android:textStyle="bold" android:textSize="18sp" android:layout_marginLeft="16dp"/>
+            <TextView android:id="@+id/btnModeTerminal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="真·终端" android:textColor="#64748B" android:textSize="16sp" android:layout_marginLeft="16dp"/>
+
+            <View android:layout_width="0dp" android:layout_weight="1" android:layout_height="1dp"/>
+            <TextView android:id="@+id/tvStatus" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="就绪" android:textColor="#10B981" android:textSize="12sp" android:fontFamily="monospace"/>
+        </LinearLayout>
+
+        <!-- 模式一：AI 对话区 -->
+        <FrameLayout android:id="@+id/layoutAI" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/topBar" android:layout_above="@id/bottomCapsule">
+            <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvChat" android:layout_width="match_parent" android:layout_height="match_parent" android:clipToPadding="false" android:padding="16dp"/>
+        </FrameLayout>
+
+        <!-- 模式二：手动终端区 -->
+        <LinearLayout android:id="@+id/layoutTerminal" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/topBar" android:layout_above="@id/bottomCapsule" android:orientation="vertical" android:visibility="gone" android:background="#000000">
+            <ScrollView android:id="@+id/scrollTerminal" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:padding="12dp" android:scrollbars="vertical">
+                <TextView android:id="@+id/tvTerminal" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#3FB950" android:fontFamily="monospace" android:textSize="13sp" android:text="[系统] 终端已启动。请使用 su 权限执行命令。\n$ "/>
+            </ScrollView>
+        </LinearLayout>
+
+        <!-- 底部输入胶囊 -->
+        <LinearLayout android:id="@+id/bottomCapsule" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_alignParentBottom="true" android:padding="12dp" android:gravity="center_vertical">
+            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="50dp" android:background="@drawable/bg_input" android:gravity="center_vertical" android:paddingHorizontal="16dp">
+                <ImageButton android:id="@+id/btnVoice" android:layout_width="32dp" android:layout_height="32dp" android:src="@android:drawable/ic_btn_speak_now" android:background="?attr/selectableItemBackgroundBorderless" app:tint="#64748B"/>
+                <EditText android:id="@+id/etMsg" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="8dp" android:background="@null" android:hint="输入指令或命令..." android:textColor="#FFF" android:textColorHint="#64748B" android:textSize="14sp"/>
+            </LinearLayout>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton android:id="@+id/btnSend" android:layout_width="50dp" android:layout_height="50dp" android:layout_marginLeft="8dp" android:src="@android:drawable/ic_menu_send" app:backgroundTint="#00F0FF" app:tint="#000" app:elevation="6dp"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- 侧滑栏 (全部功能收纳) -->
+    <LinearLayout android:layout_width="300dp" android:layout_height="match_parent" android:layout_gravity="start" android:background="#0F172A" android:orientation="vertical" android:padding="20dp" android:fitsSystemWindows="true">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Apex 控制台" android:textSize="22sp" android:textStyle="bold" android:textColor="#00F0FF"/>
+        
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DeepSeek API Key" android:layout_marginTop="16dp" android:textColor="#94A3B8" android:textSize="12sp"/>
+        <EditText android:id="@+id/etKey" android:layout_width="match_parent" android:layout_height="44dp" android:background="#1E293B" android:padding="8dp" android:textColor="#FFF" android:textSize="13sp" android:hint="粘贴密钥..." android:layout_marginTop="4dp"/>
+        <Button android:id="@+id/btnSaveKey" android:layout_width="match_parent" android:layout_height="40dp" android:text="保存密钥" android:backgroundTint="#00F0FF" android:textColor="#000" android:layout_marginTop="8dp"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="执行权限" android:layout_marginTop="16dp" android:textColor="#94A3B8" android:textSize="12sp"/>
+        <Spinner android:id="@+id/spinnerMode" android:layout_width="match_parent" android:layout_height="40dp" android:background="#1E293B" android:layout_marginTop="4dp"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="AI 模型" android:layout_marginTop="12dp" android:textColor="#94A3B8" android:textSize="12sp"/>
+        <Spinner android:id="@+id/spinnerModel" android:layout_width="match_parent" android:layout_height="40dp" android:background="#1E293B" android:layout_marginTop="4dp"/>
+
+        <Switch android:id="@+id/swWeb" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="联网搜索增强" android:textColor="#FFF" android:layout_marginTop="16dp"/>
+        <Switch android:id="@+id/swSpeak" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="语音自动播报" android:textColor="#FFF" android:checked="true"/>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#334155" android:layout_marginTop="16dp" android:layout_marginBottom="16dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="极客快捷键" android:textColor="#00F0FF" android:textStyle="bold" android:textSize="14sp"/>
+        
+        <Button android:id="@+id/btnLogcat" android:layout_width="match_parent" android:layout_height="40dp" android:text="提取崩溃日志(Logcat)" android:backgroundTint="#1E293B" android:textColor="#FFF" android:textSize="12sp" android:layout_marginTop="8dp"/>
+        <Button android:id="@+id/btnApps" android:layout_width="match_parent" android:layout_height="40dp" android:text="获取所有 APP 包名" android:backgroundTint="#1E293B" android:textColor="#FFF" android:textSize="12sp" android:layout_marginTop="8dp"/>
+        <Button android:id="@+id/btnClean" android:layout_width="match_parent" android:layout_height="40dp" android:text="清理系统缓存" android:backgroundTint="#1E293B" android:textColor="#FFF" android:textSize="12sp" android:layout_marginTop="8dp"/>
+    </LinearLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

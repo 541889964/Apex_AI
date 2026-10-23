@@ -1,0 +1,2 @@
+rootProject.name = "ApexAI"
+include ":app"
